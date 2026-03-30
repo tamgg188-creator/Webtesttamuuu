@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tamu T-Shirt Hub | প্রিমিয়াম কালেকশন</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Hind Siliguri', sans-serif; scroll-behavior: smooth; }
-        .product-card { transition: all 0.3s ease; }
-        .product-card:hover { transform: translateY(-5px); shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
@@ -17,26 +16,20 @@
     <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm px-4">
         <div class="max-w-7xl mx-auto flex justify-between items-center h-16">
             <span class="text-xl font-black text-indigo-600 tracking-tighter">TAMU <span class="text-gray-900 font-light">HUB</span></span>
-            <button onclick="toggleCart()" class="relative p-2 text-gray-600 hover:text-indigo-600 transition">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                </svg>
-                <span id="cart-count" class="absolute -top-1 -right-1 bg-indigo-600 text-white text-[10px] h-5 w-5 rounded-full flex items-center justify-center font-bold">0</span>
+            <button onclick="toggleCart()" class="relative p-2">
+                🛒 <span id="cart-count" class="absolute -top-1 -right-1 bg-indigo-600 text-white text-[10px] h-5 w-5 rounded-full flex items-center justify-center font-bold">0</span>
             </button>
         </div>
     </nav>
 
     <header class="bg-indigo-900 text-white py-12 text-center">
-        <h1 class="text-3xl font-bold">প্রিমিয়াম টি-শার্ট কালেকশন</h1>
-        <p class="text-indigo-200 mt-2 px-4 text-sm">একটি পরীক্ষামূলক ওয়েবসাইট</p>
+        <h1 class="text-3xl font-bold font-black">প্রিমিয়াম টি-শার্ট হাব</h1>
+        <p class="text-indigo-200 mt-2 text-sm">পরীক্ষামূলক ওয়েবসাইট</p>
     </header>
 
     <section class="max-w-7xl mx-auto px-4 py-12">
-        <div id="loading" class="text-center py-10 text-indigo-600 font-bold animate-pulse text-lg">
-            মৌমাছিরা টি-শার্ট নিয়ে আসছে... 👕
-        </div>
-        <div id="product-container" class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-            </div>
+        <div id="loading" class="text-center py-10 text-indigo-600 font-bold animate-pulse text-lg">টি-শার্ট লোড হচ্ছে... 👕</div>
+        <div id="product-container" class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8"></div>
     </section>
 
     <div id="cart-sidebar" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
@@ -46,90 +39,64 @@
                 <h2 class="text-xl font-bold text-gray-800">আপনার ব্যাগ</h2>
                 <button onclick="toggleCart()" class="text-gray-400 text-xl font-bold">✕</button>
             </div>
-            
-            <div id="cart-items" class="space-y-4 mb-6 text-sm text-gray-600">
-                </div>
-            
+            <div id="cart-items" class="space-y-4 mb-6 text-sm text-gray-600"></div>
             <div class="bg-indigo-50 p-5 rounded-3xl space-y-4 border border-indigo-100">
-                <h3 class="font-bold text-indigo-900 border-b border-indigo-200 pb-2 flex items-center gap-2">
-                   📍 ডেলিভারি ঠিকানা
-                </h3>
+                <h3 class="font-bold text-indigo-900 border-b border-indigo-200 pb-2">📍 ডেলিভারি তথ্য</h3>
                 <input type="text" id="cust-name" placeholder="আপনার নাম" class="w-full p-3 border rounded-xl outline-none focus:ring-2 ring-indigo-200">
                 <input type="text" id="cust-phone" placeholder="ফোন নম্বর" class="w-full p-3 border rounded-xl outline-none focus:ring-2 ring-indigo-200">
                 <textarea id="cust-addr" placeholder="বাসা নং, রোড, উপজেলা, জেলা..." class="w-full p-3 border rounded-xl outline-none focus:ring-2 ring-indigo-200 h-20"></textarea>
-                
-                <div class="text-xl font-black text-indigo-900 flex justify-between pt-2">
-                    <span>সর্বমোট:</span>
-                    <span id="cart-total">৳০</span>
-                </div>
-                
-                <button onclick="submitOrder()" id="order-btn" class="w-full bg-indigo-600 text-white py-4 rounded-xl font-black text-lg shadow-lg hover:bg-indigo-700 active:scale-95 transition-all">অর্ডার নিশ্চিত করুন</button>
+                <div class="text-xl font-black text-indigo-900 flex justify-between"><span>মোট:</span> <span id="cart-total">৳০</span></div>
+                <button onclick="submitOrder()" id="order-btn" class="w-full bg-indigo-600 text-white py-4 rounded-xl font-black text-lg shadow-lg active:scale-95 transition-all">অর্ডার নিশ্চিত করুন</button>
             </div>
         </div>
     </div>
 
-    <footer class="bg-white border-t py-10 text-center text-gray-400 text-xs">
-        <p>© 2026 Tamu T-Shirt Hub. All rights reserved.</p>
-    </footer>
-
     <script>
-        // আপনার সঠিক API URL
         const API_URL = "https://sheetdb.io/api/v1/kma1bg22xwncg";
         let products = [];
         let cart = [];
 
-        // ১. গুগল শিট থেকে টি-শার্টের ডাটা আনা
         async function fetchProducts() {
             try {
-                // সরাসরি 'products' ট্যাব থেকে ডাটা কল করা
                 const response = await fetch(`${API_URL}?sheet=products`);
-                if (!response.ok) throw new Error("API লিঙ্ক কাজ করছে না অথবা শিটটি Share করা নেই।");
-                
                 products = await response.json();
-                
-                if (products.length === 0 || products.error) {
-                    throw new Error("গুগল শিটে কোনো ডাটা পাওয়া যায়নি! কলামের নামগুলো চেক করুন।");
-                }
-                
                 renderProducts();
             } catch (error) {
-                console.error("Error:", error);
-                // স্ক্রিনে এরর দেখানো যাতে আপনি বুঝতে পারেন কি সমস্যা
-                document.getElementById('loading').innerHTML = `
-                    <div class="bg-red-50 p-4 rounded-xl text-red-600 text-sm">
-                        <b>সমস্যা হয়েছে:</b> ${error.message}<br>
-                        <small>গুগল শিটটি "Anyone with the link" করে দিন।</small>
-                    </div>
-                `;
+                document.getElementById('loading').innerHTML = `<p class="text-red-500">ডাটা লোড করতে সমস্যা হয়েছে।</p>`;
             }
         }
 
-        // ২. টি-শার্টগুলো ওয়েবসাইট পেজে দেখানো
         function renderProducts() {
             document.getElementById('loading').style.display = 'none';
             const container = document.getElementById('product-container');
-            
             container.innerHTML = products.map(p => `
-                <div class="product-card bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 p-3">
-                    <img src="${p.image}" alt="${p.name}" class="w-full h-48 md:h-64 object-cover rounded-xl mb-3 bg-gray-100">
-                    <h3 class="font-bold text-sm h-10 overflow-hidden text-gray-800 leading-tight">${p.name}</h3>
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 p-3 hover:shadow-md transition">
+                    <img src="${p.image}" class="w-full h-48 md:h-64 object-cover rounded-xl mb-3">
+                    <h3 class="font-bold text-sm h-10 overflow-hidden text-gray-800">${p.name}</h3>
                     <div class="flex justify-between items-center mt-3">
                         <div class="text-indigo-600 font-black text-lg">৳${p.price}</div>
-                        <button onclick="addToCart(${p.id})" class="bg-indigo-600 text-white p-2 rounded-lg font-bold hover:bg-gray-900 transition active:scale-90">
-                           +
-                        </button>
+                        <button onclick="addToCart(${p.id})" class="bg-indigo-600 text-white p-2 rounded-lg font-bold active:scale-90 transition">+ </button>
                     </div>
                 </div>
             `).join('');
         }
 
-        // ৩. কার্ট লজিক
         function addToCart(id) {
             const product = products.find(p => p.id == id);
             if(product) {
                 cart.push(product);
                 document.getElementById('cart-count').innerText = cart.length;
-                alert(product.name + " ব্যাগ-এ যোগ হয়েছে! 👕");
+                
+                // আধুনিক টোস্ট মেসেজ
+                Swal.fire({
+                    title: 'ব্যাগ-এ যোগ হয়েছে!',
+                    text: product.name,
+                    icon: 'success',
+                    timer: 1500,
+                    showConfirmButton: false,
+                    toast: true,
+                    position: 'top-end'
+                });
             }
         }
 
@@ -142,24 +109,18 @@
             const itemsDiv = document.getElementById('cart-items');
             const totalSpan = document.getElementById('cart-total');
             let total = 0;
-            
             if(cart.length === 0) {
-                itemsDiv.innerHTML = "<p class='text-center py-6 text-gray-400'>ব্যাগ খালি! একটি শার্ট যোগ করুন।</p>";
+                itemsDiv.innerHTML = "<p class='text-center py-4'>ব্যাগ খালি!</p>";
                 totalSpan.innerText = "৳০";
                 return;
             }
-
             itemsDiv.innerHTML = cart.map((item, index) => {
                 total += Number(item.price);
-                return `
-                <div class="flex justify-between items-center bg-gray-50 p-3 rounded-2xl border border-gray-100">
-                    <div class="flex items-center gap-3">
-                        <img src="${item.image}" class="w-10 h-10 rounded-lg object-cover">
-                        <span class="font-semibold text-gray-700 text-xs">${item.name}</span>
-                    </div>
+                return `<div class="flex justify-between items-center bg-gray-50 p-3 rounded-2xl">
+                    <span class="font-semibold text-gray-700 text-xs">${item.name}</span>
                     <div class="flex items-center gap-3">
                         <b class="text-indigo-600">৳${item.price}</b>
-                        <button onclick="removeFromCart(${index})" class="text-red-400 font-bold text-lg">✕</button>
+                        <button onclick="removeFromCart(${index})" class="text-red-400 font-bold">✕</button>
                     </div>
                 </div>`;
             }).join('');
@@ -172,18 +133,24 @@
             updateCartUI();
         }
 
-        // ৪. গুগল শিটে অর্ডার পাঠানো (orders ট্যাব)
         async function submitOrder() {
             const name = document.getElementById('cust-name').value;
             const phone = document.getElementById('cust-phone').value;
             const addr = document.getElementById('cust-addr').value;
             const btn = document.getElementById('order-btn');
 
-            if(!name || !phone || !addr) return alert("দয়া করে নাম, ফোন এবং ঠিকানা দিন।");
-            if(cart.length === 0) return alert("ব্যাগ খালি!");
+            if(!name || !phone || !addr) {
+                return Swal.fire({
+                    title: 'তথ্য অসম্পূর্ণ!',
+                    text: 'দয়া করে নাম, ফোন এবং ঠিকানা দিন।',
+                    icon: 'warning',
+                    confirmButtonColor: '#4f46e5'
+                });
+            }
+            if(cart.length === 0) return Swal.fire('ব্যাগ খালি!', '', 'info');
 
             btn.disabled = true;
-            btn.innerText = "অর্ডার প্রসেস হচ্ছে... ⏳";
+            btn.innerText = "অর্ডার প্রসেস হচ্ছে...";
 
             const orderData = {
                 data: [{
@@ -202,21 +169,22 @@
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(orderData)
                 });
-
                 if(response.ok) {
-                    alert("অর্ডার সফল হয়েছে! আমরা শীঘ্রই যোগাযোগ করব। ✅");
-                    cart = [];
-                    location.reload();
-                } else {
-                    throw new Error("অর্ডার জমা দেওয়া যায়নি। শিটের কলামগুলো চেক করুন।");
+                    Swal.fire({
+                        title: 'অর্ডার সফল! ✅',
+                        text: 'আমরা শীঘ্রই যোগাযোগ করব।',
+                        icon: 'success',
+                        confirmButtonColor: '#4f46e5'
+                    }).then(() => {
+                        cart = [];
+                        location.reload();
+                    });
                 }
             } catch (e) {
-                alert("ভুল হয়েছে: " + e.message);
+                Swal.fire('ওহ!', 'সমস্যা হয়েছে, আবার চেষ্টা করুন।', 'error');
                 btn.disabled = false;
-                btn.innerText = "অর্ডার নিশ্চিত করুন";
             }
         }
-
         window.onload = fetchProducts;
     </script>
 </body>
